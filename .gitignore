@@ -1,0 +1,15 @@
+node_modules/
+typings/
+public/
+!public/bundle*
+!public/index*
+npm-debug.log
+.idea/
+dist/
+*iml
+*.js
+!*.config.js
+*map
+unused files/index.ts
+unused files/
+client/config/apiConfig.ts

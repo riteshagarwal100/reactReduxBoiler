@@ -1,0 +1,191 @@
+
+.xAxisLables text, .yAxisLables text {
+    stroke: gray;
+}
+.axis path,
+.axis line,
+.tick line,
+.tick text {
+    stroke: gray;
+}
+.axis path, .axis line {
+    fill: none;
+    shape-rendering: crispEdges;
+}
+
+.divLineChart .axis text {
+    font-size: 10px;
+}
+#divBarChart .bar {
+    fill: steelblue;
+}
+
+#divBarChart .axis {
+    font-size: 10px;
+}
+
+/*#divBarChart .axis path, #divBarChart .axis line {
+    fill: none;
+    shape-rendering: crispEdges;
+}*/
+
+
+
+/*#divBarChart .x.axis path {
+    display: none;
+}*/
+/* End bar chart CSS */
+/* Start Donut chart CSS */
+/*#divDonutChart {*/
+    /*width: 200px;*/
+    /*bottom: 0px;*/
+    /*right: 45px;*/
+    /*position: absolute;*/
+    /*top: 60px;*/
+/*}*/
+
+#divTriggers {
+    position: absolute;
+    top: 138px;
+    right: 117px;
+    text-align: center;
+}
+
+#divDonutChart .arc text {
+    text-anchor: middle;
+}
+
+#divDonutChart .arc path {
+    stroke: #fff;
+}
+/* End Donut chart CSS */
+
+/* Start Radical chart CSS */
+#divRadicalCharts .background {
+    fill: #FFFFFF;
+    fill-opacity: 0.01;
+}
+
+#divRadicalCharts .component {
+    fill: #e1e1e1;
+}
+
+
+#divRadicalCharts .arc {
+    stroke-weight: 0.1;
+}
+
+#divRadicalCharts #div0 .arc {
+    fill: #00bc8c;
+}
+
+#divRadicalCharts #div1 .arc {
+
+    fill: #e74c3c;
+}
+
+#divRadicalCharts #div2 .arc {
+    fill: #3498db;
+}
+
+#divRadicalCharts #div3 .arc {
+    fill: #f39c12;
+}
+
+#divRadicalCharts #div0internal .arc {
+    fill: #375a7f;
+}
+
+#divRadicalCharts .arc2 {
+    stroke-weight: 0.1;
+    fill: #3660b0;
+}
+
+#divRadicalCharts .radial-svg {
+    display: block;
+    margin: 0 auto;
+}
+
+#divRadicalCharts svg {
+    width: 85px;
+    height: 85px;
+}
+
+#divRadicalCharts table {
+    position: absolute;
+    bottom: 5px;
+    margin-left: 10px;
+}
+
+.divRadicalCharts .background {
+    fill: #FFFFFF;
+    fill-opacity: 0.01;
+}
+
+.divRadicalCharts .component {
+    fill: #e1e1e1;
+}
+
+.divRadicalCharts .arc {
+    stroke-weight: 0.1;
+}
+
+.divRadicalCharts #divAudienceTrendsRadicalChart .arc {
+    fill: #22B0F4;
+}
+
+.divRadicalCharts .arc2 {
+    stroke-weight: 0.1;
+    fill: #3660b0;
+}
+
+.divRadicalCharts .radial-svg {
+    display: block;
+    margin: 0 auto;
+}
+
+.divRadicalCharts table {
+    position: absolute;
+    bottom: 5px;
+    margin-left: 10px;
+}
+
+/* End Radical chart CSS */
+/* Start Line chart CSS */
+.divLineChart {
+    top: 0px;
+    position: relative;
+}
+
+.divLineChart .line {
+    fill: none;
+    stroke-width: 1.5px;
+}
+
+.divLineChart div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 50px;
+    height: 10px;
+    padding: 5px;
+    font: 10px sans-serif;
+    background: whiteSmoke;
+    border: solid 1px #aaa;
+    pointer-events: none;
+    box-shadow: 2px 2px 1px #888;
+}
+
+.divLineChart .legend {
+    padding: 5px;
+    font: 10px sans-serif;
+    background: yellow;
+    box-shadow: 2px 2px 1px #888;
+}
+
+.divLineChart .title {
+    font: 13px sans-serif;
+}
+/* End Line chart CSS */
+
+
+

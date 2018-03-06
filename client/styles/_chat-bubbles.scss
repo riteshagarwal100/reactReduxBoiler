@@ -1,0 +1,395 @@
+/*## CHAT BUBBLE COMPONENTS ##*/
+
+section.chat {
+
+	padding-left: $navbar-left-width;
+	height: 100%;
+
+	p {
+		margin-bottom: 0;
+		font-size: 1.125em;
+
+		&.footnote {
+			font-size: 0.875em;
+		}
+	}
+
+
+	.highlight-box {
+		margin-bottom: $marg-main-sm;
+
+		> .row {
+			margin-bottom: $marg-article-main-sm;
+		}
+	}
+
+	
+
+	.chat-input {
+
+		background-color: $white;
+		margin-left: -$navbar-left-width;
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		height: auto;
+		z-index: 1;
+		padding-left: $navbar-left-width + 0;
+		border-top: solid $steel 1px;
+		padding-top: 10px;
+
+		textarea {
+
+			width: 100%;
+			border: none;
+			height: 50px;
+			max-height: 200px;
+			outline: none !important;
+			&:focus {
+				outline-color: transparent;
+				outline-style: none;
+				border-color: inherit;
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+		}
+	}
+}
+
+// BUBBLES
+// *******************************
+
+
+.chat-main {
+	padding-bottom: 100px;
+}
+
+.convo {
+
+	font-weight: 400;
+	color: $greyish-brown;
+	position: fixed;
+	bottom: 0px;
+	justify-content: center;
+    display: flex;
+    align-items: center;
+	clear: both;
+	max-width: 670px;
+
+	.goals {
+		margin-left:65px;
+
+		& > li {
+			position: relative;
+			clear: both;
+			width: auto;
+			max-width: 500px;
+			margin-bottom: $marg-main-sm;
+			@include box-pad(15px 15px, 20px 20px, 15px);
+			border-radius: $border-radius-main;
+			box-shadow: $box-shadow-main;
+			font-weight: 600;
+			color: $greyish-brown;
+			transition: width 0.5s;
+
+			border-style: solid;
+			border-color: $white;
+			border-width: 2px;
+			cursor: crosshair;
+		}
+		.drag-menu {
+			
+			position: absolute;
+			right: 15px;
+			
+
+			& + .dropdown-menu {
+				min-width: 0% !important; 
+				top: 80%;
+				left: auto;
+				right: -29%;
+				
+				li {
+
+					a {
+						text-align: left;
+						padding: 10px 20px 10px 20px
+					}
+				}
+			}
+		}
+		
+		li p {
+			font-weight: 400;
+			display: inline-block;
+			margin-left: 60px;
+			line-height: 1.1em;
+			span {
+				font-size: 0.7em;
+				color: $steel;
+			}
+			i {
+				margin-left: -65px;
+				display: block;
+				position: absolute;
+				background-color: $water-blue;
+				padding: 15px;
+				color: $white;
+				border-radius: 55px;
+				margin-right: 12px;
+			}
+		}
+
+		.sortable-ghost {
+			border-style: dotted;
+			border-width: 2px;
+			border-color: $steel;
+			opacity: 1;
+		}		
+	}
+
+	.bubble {
+		
+		width: auto;
+		max-width: 600px;
+		margin-bottom: $marg-main-sm;
+		@include box-pad($pad-box-main-sm $pad-box-main, $pad-box-main-sm $pad-box-main, $pad-box-main-sm);
+		border-radius: $border-radius-main;
+		box-shadow: $box-shadow-main;
+		font-weight: 400;
+		color: $white;
+		transition: width 0.5s;
+
+		@extend %font-smoothing;
+
+		@media (max-width: $xs - 1) {
+			border-radius: 10px;
+		}
+
+		label {
+			font-family: $font-sans-serif-cond;
+			font-weight: 400;
+
+			small {
+				margin-left: 1em;
+				color: $grey-tint-1;
+			}
+		}
+
+		input[type=text] {
+			height: auto;
+			border: none;
+			padding: 0;
+
+			&:focus {
+				box-shadow: none;
+			}
+		}
+
+		::-webkit-input-placeholder {
+			color: $grey-tint-2;
+		}
+		::-ms-input-placeholder {
+			color: $grey-tint-2;
+		}
+		::-moz-input-placeholder {
+			color: $grey-tint-2;
+		}
+		
+		// MAIN BUBBLE
+		&-main {
+			margin-top: 200px;
+			border-bottom-left-radius: $border-radius-main-sm;
+			background-color: $primary-color;
+			font-weight: 300;
+			clear: both;
+
+			h1, p {
+				font-size: 1.375em;
+				color: $white;
+			}
+			
+			.list-inline {
+				margin-top: $marg-article-main-sm;
+			}
+		}
+
+		&.white {
+			background-color: $white;
+			color: $greyish-brown;
+		}
+
+		// LEFT BUBBLE
+		&-left {
+			border-top-left-radius: $border-radius-main-sm;
+			background-color: $water-blue;
+			float: left;
+		}
+
+		// RIGHT BUBBLE
+		&-right {
+			border-top-right-radius: $border-radius-main-sm;
+			background-color: $light-grey;
+			color: $font-body-color;
+			float: right;
+			display: inline-block;
+		}
+
+
+		
+		// USER SELECTION BUBBLES
+		&-selection,
+		&-selection-multi, 
+		&-selection-input {
+			position: relative;
+			text-align: right;
+			float: right;
+
+			.bubble-right {
+				margin-left: $marg-main-sm;
+				float: none;
+
+				p {
+					font-size: 1em;
+				}
+			}
+			
+			// BUTTON BUBBLES
+			.bubble-button {
+				margin-left: $marg-main-sm;
+				border: none;
+				background-color: $secondary-color;
+				transition: 0.3s;
+				@media (min-width: $md) {
+					position: absolute;
+					top: 0;
+					left: calc(100% + $marg-main-sm);
+					border-bottom-left-radius: $border-radius-main-sm;
+				}
+
+				&:hover {
+					background-color: $secondary-color-dark;
+				}
+			}
+		}
+
+		&-selection,
+		&-selection-multi {
+			.bubble-right {
+				cursor: pointer;
+				transition: 0.3s;
+
+				&:hover {
+					background-color: $secondary-color-tint-2;
+				}
+
+				&.active {
+					background-color: $secondary-color;
+					color: $white;
+				}
+			}
+		}
+
+		&-selection-multi {
+			.bubble-right {
+				width: 120px;
+				height: 110px;
+				padding: $pad-box-main-sm 5px;
+				font-family: $font-sans-serif-cond;
+				text-align: center;
+				
+				&::before,
+				&::after {
+					content: "";
+					position: absolute;
+					transition: 0.4s;
+				}
+				&::before {
+					top: 10px;
+					right: 10px;
+					height: 15px;
+					width: 15px;
+					border: solid 1px $secondary-color;
+					border-radius: 50%;
+					background-color: $secondary-color-tint-3;
+				}
+				&::after {
+					content: "\F012";
+					top: 11px;
+					right: 13px;
+					font-family: "Black Tie";
+					font-weight: 900;
+					font-size: 8px;
+					color: $white;
+					opacity: 0;
+				}
+
+				&.active {
+					&::before {
+						border-color: $secondary-color-tint-3;
+						background-color: transparent;
+					}
+					&::after {
+						opacity: 1;
+					}
+				}
+			}
+
+			.icon {
+				font-size: 1.5em;
+			}
+		}
+
+		// LARGEST BUBBLE
+		&-lg {
+			max-width: none;
+			width: 100%;
+		}
+
+	} // end .bubble
+
+
+
+	// LEFT BUBBLE
+	&-left {
+		float: left;
+		.bubble {
+			border-top-left-radius: $border-radius-main-sm;
+			background-color: $water-blue;
+			float:left;
+		}	
+		.user {
+			float:left;	
+			margin-right: 10px;
+		}
+	}
+
+	// RIGHT BUBBLE
+	&-right {
+		float: right;
+		display: inline-block;
+		.bubble {
+			border-top-right-radius: $border-radius-main-sm;
+			background-color: $light-grey;
+			color: $font-body-color;
+			float:right;
+		}
+		.user {
+			float:right;	
+			margin-left: 10px;
+		}
+	}
+	
+	.user {
+		width: 60px;
+		height: 100%;
+		text-align: center;
+		font-weight: 600;
+		img {
+			width: 60px;
+		}
+	}
+
+	
+}
+

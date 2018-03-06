@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+     "jsx": "react",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "rootDir": "client",
+  "exclude": [
+    "node_modules",
+    "typings/main",
+    "typings/browser",
+    "typings/main.d.ts"
+  ]
+}
