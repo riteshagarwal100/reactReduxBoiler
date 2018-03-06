@@ -5,6 +5,8 @@ import { Panel } from 'react-bootstrap';
 import { connect } from "react-redux";
 import * as ReactRouter from 'react-router';
 
+import './style/style.scss';
+
 export class App extends React.Component<any, any> {
     constructor(props, state) {
         super(props, state)
@@ -14,8 +16,8 @@ export class App extends React.Component<any, any> {
     render() {
         
         return (
-            <div>
-                <span>hi gg</span>
+            <div className="red">
+                <span >hi gg1</span>
             </div>
         )
     }
