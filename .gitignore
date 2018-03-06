@@ -1,6 +1,5 @@
 node_modules/
 typings/
-public/
 !public/bundle*
 !public/index*
 npm-debug.log
