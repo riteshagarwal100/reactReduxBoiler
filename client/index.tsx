@@ -1,17 +1,15 @@
 import * as React from 'react'
-import {render} from 'react-dom'
-import {Provider} from 'react-redux';
-import {Router, browserHistory} from 'react-router'
-import {syncHistoryWithStore} from 'react-router-redux';
-import store from './store/store';
-import RouterWrapper from './components/routes/components/RouterWrapper';
-import { App } from "./components/app/App";
+import { render } from 'react-dom'
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-const history = syncHistoryWithStore(browserHistory, store);
+import store from './store/store';
+import App from "./components/app/app";
 
 
 render(
     <Provider store={store}>
-        <RouterWrapper history={history} />
+        <App />
     </Provider>
-    , document.getElementById('app'));
+    , document.getElementById('app')
+);

@@ -1,7 +1,7 @@
 
 import * as React from 'react';
-import {PlainRoute} from "react-router";
-import {RouteConfig} from "react-router";
+import {PlainRoute} from 'react-router';
+import {RouteConfig} from 'react-router';
 
 
 export interface  routeConfigInterface {

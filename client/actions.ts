@@ -1,10 +1,9 @@
 
 import {push} from "react-router-redux";
-import {IActionGeneric} from "redux";
 
 export interface commonActionsInterface {
     createActionRedirect?(path:string): Function;
-    createActionLogoutUser?(): IActionGeneric<any>;
+    createActionLogoutUser?(): any;
 }
 
 export function createActionRedirect(path) {

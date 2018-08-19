@@ -1,25 +1,28 @@
-import {IMiddleware, IMiddlewareStore, IDispatch, IActionGeneric, IAction} from "redux";
+declare var require: any;
+import { Middleware, Store, Dispatch, Action } from 'redux';
 let batch = require('redux-batched-actions');
-import {stateInterface} from "../store/store";
-import  * as api from  '../services/api';
-import {createActionLogoutUser} from "../actions";
+import { stateInterface } from '../store/store';
+import * as api from '../services/api';
+import { createActionLogoutUser } from '../actions';
 export const CALL_API = 'Call API';
-
+import * as myStore from '../store/store';
 
 // A Redux middleware that interprets actions with CALL_API info specified.
 // Performs the call and promises when such actions are dispatched.
 //
-const apiMiddleware: IMiddleware<stateInterface> =
-    (store: IMiddlewareStore<stateInterface>) =>
-        (next: IDispatch): any =>
+const apiMiddleware: Middleware =
+    (store: Store<any>) =>
+        (next: any): any =>
             (action: any): any => {
-                const callAPI = action[CALL_API]
+                let callAPI = action[CALL_API]
                 if (typeof callAPI === 'undefined') {
                     return next(action)
                 }
 
-                let {url} = callAPI
-                const {schema, types} = callAPI
+                callAPI = api.setHeaders(callAPI);
+
+                let { url } = callAPI
+                const { schema, types } = callAPI
 
                 if (typeof url === 'function') {
                     url = url(store.getState())
@@ -28,9 +31,7 @@ const apiMiddleware: IMiddleware<stateInterface> =
                 if (typeof url !== 'string') {
                     throw new Error('Specify a string endpoint URL.')
                 }
-                // if (!schema) {
-                //     throw new Error('Specify one of the exported Schemas.')
-                // }
+
                 if (!Array.isArray(types) || types.length !== 3) {
                     throw new Error('Expected an array of three action types.')
                 }
@@ -45,18 +46,59 @@ const apiMiddleware: IMiddleware<stateInterface> =
                     return finalAction;
                 }
 
-                const [ requestType, successType, failureType ] = types
-                next(actionWith({type: requestType}))
+                const [requestType, successType, failureType] = types
+                next(actionWith({ type: requestType }));
+
+                if (callAPI.isFile) {
+                    const formData = new FormData();
+                    callAPI.data.forEach(el => {
+                        formData.append('file', el);
+                    });
+                    callAPI.data = formData;
+                    callAPI.headers['Content-Type'] = 'multipart/form-data';                    
+                }
+
+                if (callAPI.isAction) {
+                    let state = store.getState();
+                    return state['ReactRest'].getFromUrl(callAPI.url, callAPI.dtoFn, callAPI.method, callAPI.data).then(response => {
+                        next(actionWith({
+                            response,
+                            type: successType,
+                            params: action.params
+                        }))
+                    }).catch(err => {
+                        next(actionWith({
+                            error: err.data || (action.actionData && action.actionData.errorMessage) || 'Failed To Perform Action',
+                            type: failureType,
+                            params: action.params
+                        }))
+                    });
+                }
+
+                if (callAPI.restCall) {
+                    let state = store.getState();
+                    return state['EntitySaveService'].save(callAPI.data, callAPI.isChildSave).then(res => {
+                        next(actionWith({
+                            response: { data: callAPI.data },
+                            type: successType,
+                            params: action.params
+                        }))
+                    }).catch(err => {
+                        next(actionWith({
+                            error: err.data || (action.actionData && action.actionData.errorMessage) || 'Failed To Perform Action',
+                            type: failureType,
+                            params: action.params
+                        }))
+                    });
+                }
 
                 return api.callAPI(callAPI).then(
                     (response) => {
                         if (action.actionData && action.actionData.successMessage
                             && action.actionData.successMessage.length > 0) {
-                            let {successMessage:message} = action.actionData;
-                            //let successNotification = <notificationModel>{message};
+                            // const { successMessage: message } = action.actionData;
                             next(
                                 batch.batchActions([
-                                    //createActionAddSuccess(successNotification),
                                     actionWith({
                                         response,
                                         type: successType,
@@ -77,31 +119,35 @@ const apiMiddleware: IMiddleware<stateInterface> =
                 ).catch(
                     (error) => {
                         if (error && error.status === 401) {
-                            let message = "Sorry! You have been Logged out. Please login again to continue";
-                            //let errorNotification = <notificationModel>{message};
+                            let message = 'Sorry! You have been Logged out. Please login again to continue';
                             next(
                                 batch.batchActions([
-                                    //createActionAddError(errorNotification),
                                     createActionLogoutUser()
                                 ])
                             );
 
                         }
-                        if (error && error.status === 404 || error.status === 403 || error.status === 500 || error.status === 400) {
-                            let message = error.data.message || (action.actionData && action.actionData.errorMessage)
-                                || "Something Bad Happened";
-                            //let errorNotification = <notificationModel>{message};
+                        if (error && error.status === 404 || error.status === 403 || error.status === 500 || error.status === 400 || error.status === 401) {
+                            const message = error.data || (action.actionData && action.actionData.errorMessage);
                             next(
                                 batch.batchActions([
-                                    //createActionAddError(errorNotification),
                                     actionWith({
                                         type: failureType,
-                                        error: error.message || 'Something bad happened',
+                                        error: message || 'Failed To Perform Action',
                                         params: action.params
                                     })
-
                                 ])
                             );
+                        } else {
+                            next(batch.batchActions(
+                                [
+                                    actionWith({
+                                        type: failureType,
+                                        error: 'Failed To Perform Action',
+                                        params: action.params
+                                    })
+                                ]
+                            ));
                         }
                     }
                 );

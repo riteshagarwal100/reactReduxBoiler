@@ -1,17 +1,32 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "outDir": "build/dist",
     "module": "commonjs",
-     "jsx": "react",
+    "target": "es6",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": ["es6", "dom"],
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "allowJs": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "rootDir": "client",
+    "noImplicitReturns": false,
+    "noImplicitThis": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false
   },
-  "rootDir": "client",
   "exclude": [
     "node_modules",
-    "typings/main",
-    "typings/browser",
-    "typings/main.d.ts"
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts"
+  ],
+  "types": [
+    "typePatches"
   ]
 }

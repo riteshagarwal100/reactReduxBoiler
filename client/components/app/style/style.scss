@@ -7,5 +7,9 @@
 }
 
 .red {
-    background-color: red;
-} 
+    background-color: yellow;
+}
+
+#PlacesAutocomplete__autocomplete-container {
+    z-index: 100;
+}

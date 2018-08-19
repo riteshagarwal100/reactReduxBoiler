@@ -21,7 +21,7 @@ module.exports = {
     },
     devtool: NODE_ENV == 'production' ? 'cheap-module-source-map' : '#inline-source-map',
     resolve: {
-        extensions: [".js", ".jsx", ".ts", ".tsx"]
+        extensions: [".js", ".jsx", ".ts", ".tsx",".json"]
     },
     module: {
         rules: [
@@ -32,10 +32,7 @@ module.exports = {
 
             },
             {
-              test: /\.css$/, use: ['style-loader', 'css-loader', 'postcss-loader']
-            },
-            {
-              test: /\.(scss)$/,
+              test: /\.(scss)|.css$/,
               use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
                 use: [
@@ -63,11 +60,12 @@ module.exports = {
               use: 'url-loader?limit=10000',
             },
             {
-              test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+              test: /\.(ttf|eot)(\?[\s\S]+)?$/,
+              // test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/, add font pasth with folder or file name. else svg sprite will not work
               use: 'file-loader',
             },
             {
-              test: /\.(jpe?g|png|gif|svg)$/i,
+              test: /\.(jpe?g|png|svg|gif)$/i,
               use: [
                 'file-loader?name=images/[name].[ext]',
                 'image-webpack-loader?bypassOnDebug'
@@ -119,7 +117,7 @@ module.exports = {
             Util: 'exports-loader?Util!bootstrap/js/dist/util'
         }),
         new webpack.NamedModulesPlugin(),
-        new ExtractTextPlugin('style1.css'),
+        new ExtractTextPlugin('site.css'),
         new TransferWebpackPlugin([
             { from: 'client' },
           ])

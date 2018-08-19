@@ -3,15 +3,19 @@ export interface apiConfigInterface {
     host: string;
     dataApiUrl: string;
     applicationApiUrl: string;
+    authorizeApiLoginId: string;
+    authorizeApiKey: string;
 }
 
 
 export const apiConfig: apiConfigInterface = {
-    protocol: "http",
-    host: "localhost:9999",
-    dataApiUrl: "data",
-    applicationApiUrl: ""
+    protocol: 'http',
+    host: 'localhost:9999',
+    dataApiUrl: 'data',
+    applicationApiUrl: '',
+    authorizeApiLoginId: 'sas',
+    authorizeApiKey: 'sasa'
 }
 
-export const apiRequestTypeAccount:string = "ACCOUNT";
-export const apiRequestTypeUser:string = "USER";
+export const apiRequestTypeAccount: string = 'ACCOUNT';
+export const apiRequestTypeUser: string = 'USER';
